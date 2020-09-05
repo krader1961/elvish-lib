@@ -16,7 +16,7 @@ if (has-external gdate) {
         # Must be a BSD system which doesn't support %N and where we don't
         # have GNU date installed as `gdate`. So simply accept that a
         # resolution of seconds is the best we can do.
-        now~ = []{ float64 ('date +%s') }
+        now~ = []{ float64 (date '+%s') }
     }
 }
 
