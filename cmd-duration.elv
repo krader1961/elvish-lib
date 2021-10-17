@@ -1,4 +1,4 @@
-fn human-readable [duration]{
+fn human-readable {|duration|
     if (> 0.001 $duration) {
         # Up to one millisecond display microseconds.
         printf '%.0f µs' (* $duration 1_000_000)
