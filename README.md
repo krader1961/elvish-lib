@@ -2,7 +2,8 @@
 
 This project provides modules useful to a user of the
 [Elvish shell](https://elv.sh/). For example, a mechanism for displaying the
-duration of an interactive statement in your left or right prompt.
+duration of an interactive statement in your left or right prompt or adding a
+`ulimit` command.
 
 ## Installation
 
@@ -11,6 +12,19 @@ Using the [Elvish package manager](https://elv.sh/ref/epm.html):
 ```shell
 use epm
 epm:install github.com/krader1961/elvish-lib
+```
+
+## Adding a ulimit command
+
+Add the following to your _~/.elvish/rc.elv_ file:
+
+```shell
+if $platform:is-unix {
+  use unix
+  use github.com/krader1961/elvish-lib/util-unix
+  edit:add-var unix: $unix:
+  edit:add-var ulimit~ $util-unix:ulimit~
+}
 ```
 
 ## Displaying command duration in an interactive prompt
