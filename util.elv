@@ -1,6 +1,6 @@
 use file
 use flag
-use path
+use os
 use re
 use str
 
@@ -205,10 +205,10 @@ fn -fenv-update {|&dry-run=$false old-env new-env|
 fn fenv {|&dry-run=$false script|
     var old-env
     var new-env
-    var tmpf = (path:temp-file)
+    var tmpf = (os:temp-file)
     defer {
         file:close $tmpf
-        rm $tmpf[name]
+        os:remove $tmpf[name]
     }
     if (has-external jq) {
         set old-env = (jq -n env | from-json)
