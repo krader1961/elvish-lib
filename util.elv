@@ -46,15 +46,14 @@ fn ff {|@ext|
 
 fn gitfiles {|@args|
     var @files = (git status --porcelain --short --untracked-files=all $@args |
-      sort -u |
-      sed -e 's/^ *[^ ]* *//')
+       each {|l| re:replace '^ *[^ ]* *' '' $l} | order &key={|k| str:to-lower $k })
     if (eq [] $files) {
         set @files = (git show --word-diff=porcelain --name-only --pretty=oneline $@args |
-          tail -n +2 | sort -u )
+          drop 1 | order &key={|k| str:to-lower $k } )
     }
 
     for f $files {
-        if ?(test -e $f) {
+        if (os:exists $f) {
             put $f
         }
     }
